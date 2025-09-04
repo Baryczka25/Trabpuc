@@ -1,3 +1,5 @@
+package scr;
+
 import javax.swing.*;
 
 public class Arma {
