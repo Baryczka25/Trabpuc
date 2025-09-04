@@ -10,43 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Repository
-        uses: actions/checkout@v4  # Corrigido para a ação de checkout correta
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: Simulating delivery
-        run: echo "Simulating delivery step..."  # Exemplo de comando simples, substitua conforme necessário
+      - name: Simulate delivery
+        run: echo "Simulating delivery step..."
 
       - name: Archive files into a tar (instead of zip)
         run: |
           echo "Creating the tarball..."
-          tar -czf $GITHUB_WORKSPACE/test.tar.gz **/*.java README.md  # Compacta os arquivos em um tar.gz
+          tar -czf $GITHUB_WORKSPACE/test.tar.gz **/*.java README.md
           echo "Tarball created at $GITHUB_WORKSPACE/test.tar.gz"
         
-      - name: Save the artifact manually
-        run: |
-          echo "Creating artifacts directory..."
-          mkdir -p $GITHUB_WORKSPACE/artifacts  # Cria o diretório artifacts se não existir
-          echo "Moving tarball to the artifacts directory..."
-          mv $GITHUB_WORKSPACE/test.tar.gz $GITHUB_WORKSPACE/artifacts/  # Move o arquivo para o diretório correto
-          echo "Tarball moved to $GITHUB_WORKSPACE/artifacts/test.tar.gz"
-      
-      - name: Verify artifact in directory
-        run: |
-          echo "Verifying if the tarball exists in the artifacts directory..."
-          ls -lh $GITHUB_WORKSPACE/artifacts/  # Verifica se o arquivo está no diretório
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-artifact
+          path: $GITHUB_WORKSPACE/test.tar.gz
 
   deploy:
     runs-on: ubuntu-latest
-    needs: deliver  # Define que o job deploy depende do job deliver
+    needs: deliver  # Este job depende do job "deliver"
 
     steps:
-      - name: Download artifact manually
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: test-artifact  # O nome do artefato que foi carregado no job anterior
+
+      - name: Extract the tarball
         run: |
-          echo "Checking if the artifact exists..."
-          ls -lh $GITHUB_WORKSPACE/artifacts/  # Verifica se o arquivo está no diretório
-          cp $GITHUB_WORKSPACE/artifacts/test.tar.gz .  # Copia o arquivo para o diretório atual
           echo "Extracting the tarball..."
           tar -xvzf test.tar.gz  # Extrai o tar.gz para o diretório atual
 
       - name: Display structure of downloaded files
-        run: ls -R  # Exibir a estrutura de arquivos do artefato extraído
+        run: ls -R  # Exibe a estrutura de arquivos do artefato extraído
