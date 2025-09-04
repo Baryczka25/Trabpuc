@@ -16,24 +16,23 @@ jobs:
       - name: Simulating delivery
         run: echo "Simulating delivery step..."  # Exemplo de comando simples, substitua conforme necessário
 
-      - name: Archive files into a zip (Optional)
-        run: zip -r test.zip **/*.java README.md  # Exemplo de como compactar arquivos especificados
+      - name: Archive files into a tar (instead of zip)
+        run: tar -czf test.tar.gz **/*.java README.md  # Compacta os arquivos em um tar.gz
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3  # Atualizado para v3
-        with:
-          name: test.zip
-          path: test.zip
+      - name: Save the artifact manually (use upload storage, etc)
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/artifacts
+          mv test.tar.gz $GITHUB_WORKSPACE/artifacts/
 
   deploy:
     runs-on: ubuntu-latest
     needs: deliver  # Define que o job deploy depende do job deliver
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3  # Atualizado para v3 também
-        with:
-          name: test.zip  # Nome do artefato a ser baixado
+      - name: Download artifact manually
+        run: |
+          cp $GITHUB_WORKSPACE/artifacts/test.tar.gz .
+          tar -xvzf test.tar.gz  # Extrai o tar.gz para o diretório atual
 
       - name: Display structure of downloaded files
-        run: ls -R  # Exibir a estrutura de arquivos do artefato baixado
+        run: ls -R  # Exibir a estrutura de arquivos do artefato extraído
