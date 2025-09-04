@@ -14,22 +14,29 @@ jobs:
 
     steps:
       - name: Check Repository
-      - uses: actions/checkout@v4uses
+        uses: actions/checkout@v4  # Corrigido para a ação de checkout correta
+      
+      - name: Simulating delivery
+        run: echo "Simulating delivery step..."  # Exemplo de comando simples, substitua conforme necessário
 
-      - name: simulando delivery
-      - uses: actions/checkout@v4uses
+      - name: Archive files into a zip (Optional)
+        run: zip -r test.zip **/*.java README.md  # Exemplo de como compactar arquivos especificados
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3  # Enviar o arquivo zipado como artefato
         with:
           name: test.zip
-          path: |
-            '**.java'
-            README.md
+          path: test.zip
 
   deploy:
-    runs-on : ubuntu-lastest
-    needs : deliver
+    runs-on: ubuntu-latest
+    needs: deliver  # Define que o job deploy depende do job deliver
+
     steps:
-        - uses: actions/download-artifact@v5
-          with:
-            name: test.zip
-        - name: Display structure of downloaded files
-          run: ls -R
+      - name: Download artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: test.zip  # Nome do artefato a ser baixado
+
+      - name: Display structure of downloaded files
+        run: ls -R  # Exibir a estrutura de arquivos do artefato baixado
