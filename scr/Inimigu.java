@@ -1,4 +1,7 @@
+package scr;
+
 import javax.swing.*;
+
 
 public class Inimigu {
     private int vida;
