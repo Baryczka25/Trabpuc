@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up JDK 11
+      - name: check repository
       - uses: actions/checkout@v4uses
 
       - name: simulando delivery
@@ -23,8 +23,6 @@ jobs:
           path: |
             '**.java'
             README.md
-        run: mvn -B package --file pom.xml
-
 
       - name: Publish to GitHub Packages Apache Maven
         run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
