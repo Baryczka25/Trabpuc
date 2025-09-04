@@ -17,12 +17,17 @@ jobs:
         run: echo "Simulating delivery step..."  # Exemplo de comando simples, substitua conforme necessário
 
       - name: Archive files into a tar (instead of zip)
-        run: tar -czf test.tar.gz **/*.java README.md  # Compacta os arquivos em um tar.gz
-
-      - name: Save the artifact manually (use upload storage, etc)
         run: |
+          echo "Creating the tarball..."
+          tar -czf $GITHUB_WORKSPACE/test.tar.gz **/*.java README.md  # Compacta os arquivos em um tar.gz
+          echo "Tarball created at $GITHUB_WORKSPACE/test.tar.gz"
+        
+      - name: Save the artifact manually
+        run: |
+          echo "Moving tarball to the artifacts directory"
           mkdir -p $GITHUB_WORKSPACE/artifacts
-          mv test.tar.gz $GITHUB_WORKSPACE/artifacts/
+          mv $GITHUB_WORKSPACE/test.tar.gz $GITHUB_WORKSPACE/artifacts/  # Move o arquivo para o diretório correto
+          echo "Tarball moved to $GITHUB_WORKSPACE/artifacts/test.tar.gz"
 
   deploy:
     runs-on: ubuntu-latest
@@ -31,7 +36,10 @@ jobs:
     steps:
       - name: Download artifact manually
         run: |
-          cp $GITHUB_WORKSPACE/artifacts/test.tar.gz .
+          echo "Checking if the artifact exists..."
+          ls -lh $GITHUB_WORKSPACE/artifacts/  # Verifica se o arquivo está no diretório
+          cp $GITHUB_WORKSPACE/artifacts/test.tar.gz .  # Copia o arquivo para o diretório atual
+          echo "Extracting the tarball..."
           tar -xvzf test.tar.gz  # Extrai o tar.gz para o diretório atual
 
       - name: Display structure of downloaded files
