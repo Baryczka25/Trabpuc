@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2  # A versão v2 da ação de checkout pode ser mais estável
 
       - name: Simulate delivery
         run: echo "Simulating delivery step..."
@@ -22,8 +22,8 @@ jobs:
           tar -czf $GITHUB_WORKSPACE/test.tar.gz **/*.java README.md
           echo "Tarball created at $GITHUB_WORKSPACE/test.tar.gz"
         
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload artifact (using v1 for better stability)
+        uses: actions/upload-artifact@v1
         with:
           name: test-artifact
           path: $GITHUB_WORKSPACE/test.tar.gz
@@ -34,17 +34,9 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2  # Usando a versão v2 do checkout
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
+      - name: Download artifact (using v1 for better stability)
+        uses: actions/download-artifact@v1
         with:
-          name: test-artifact  # O nome do artefato que foi carregado no job anterior
-
-      - name: Extract the tarball
-        run: |
-          echo "Extracting the tarball..."
-          tar -xvzf test.tar.gz  # Extrai o tar.gz para o diretório atual
-
-      - name: Display structure of downloaded files
-        run: ls -R  # Exibe a estrutura de arquivos do artefato extraído
+          name: test-artifact  # O nome do artefato carregado no jo
