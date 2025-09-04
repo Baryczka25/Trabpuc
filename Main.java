@@ -16,10 +16,19 @@ public class Main {
         frame.setLayout(new FlowLayout());
 
         JLabel lblPontos = new JLabel("Pontos: 0");
-        JButton btnClicar = new JButton("Clicar!");
         JButton btnUpgrade = new JButton("Upgrade (+1 por clique) - Custa 10");
 
-        // botão de clique
+        ImageIcon iconeOriginal = new ImageIcon("imagens/M1911.png"); // use PNG
+        Image tamanhocerto = iconeOriginal.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        ImageIcon pistol = new ImageIcon(tamanhocerto);
+
+
+        // botão-imagem de pontos
+        JButton btnClicar = new JButton(pistol);
+        btnClicar.setPreferredSize(new Dimension(100, 100));
+        btnClicar.setBorderPainted(false);
+        btnClicar.setContentAreaFilled(false);
+
         btnClicar.addActionListener(e -> {
             pontos += pontosPorClique;
             lblPontos.setText("Pontos: " + pontos);
