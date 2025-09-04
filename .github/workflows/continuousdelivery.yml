@@ -1,6 +1,3 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#apache-maven-with-a-settings-path
-
 name: continuousdelivery
 
 on:
@@ -15,7 +12,7 @@ jobs:
     steps:
       - name: Check Repository
         uses: actions/checkout@v4  # Corrigido para a ação de checkout correta
-      
+
       - name: Simulating delivery
         run: echo "Simulating delivery step..."  # Exemplo de comando simples, substitua conforme necessário
 
@@ -23,7 +20,7 @@ jobs:
         run: zip -r test.zip **/*.java README.md  # Exemplo de como compactar arquivos especificados
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3  # Enviar o arquivo zipado como artefato
+        uses: actions/upload-artifact@v2  # Atualizado para v2
         with:
           name: test.zip
           path: test.zip
@@ -34,7 +31,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v2  # Use v2 para a ação download-artifact também
         with:
           name: test.zip  # Nome do artefato a ser baixado
 
