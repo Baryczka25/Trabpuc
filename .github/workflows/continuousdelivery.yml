@@ -20,7 +20,7 @@ jobs:
         run: zip -r test.zip **/*.java README.md  # Exemplo de como compactar arquivos especificados
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2  # Atualizado para v2
+        uses: actions/upload-artifact@v3  # Atualizado para v3
         with:
           name: test.zip
           path: test.zip
@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2  # Use v2 para a ação download-artifact também
+        uses: actions/download-artifact@v3  # Atualizado para v3 também
         with:
           name: test.zip  # Nome do artefato a ser baixado
 
