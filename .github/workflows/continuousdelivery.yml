@@ -24,10 +24,16 @@ jobs:
         
       - name: Save the artifact manually
         run: |
-          echo "Moving tarball to the artifacts directory"
-          mkdir -p $GITHUB_WORKSPACE/artifacts
+          echo "Creating artifacts directory..."
+          mkdir -p $GITHUB_WORKSPACE/artifacts  # Cria o diretório artifacts se não existir
+          echo "Moving tarball to the artifacts directory..."
           mv $GITHUB_WORKSPACE/test.tar.gz $GITHUB_WORKSPACE/artifacts/  # Move o arquivo para o diretório correto
           echo "Tarball moved to $GITHUB_WORKSPACE/artifacts/test.tar.gz"
+      
+      - name: Verify artifact in directory
+        run: |
+          echo "Verifying if the tarball exists in the artifacts directory..."
+          ls -lh $GITHUB_WORKSPACE/artifacts/  # Verifica se o arquivo está no diretório
 
   deploy:
     runs-on: ubuntu-latest
