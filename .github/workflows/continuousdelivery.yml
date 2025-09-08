@@ -16,17 +16,17 @@ jobs:
       - name: Simulate delivery
         run: echo "Simulating delivery step..."
 
-      - name: Archive files into a tar (instead of zip)
+      - name: Archive files into a zip 
         run: |
-          echo "Creating the tarball..."
-          tar -czf test.tar.gz **/*.java README.md
-          echo "Tarball created at test.tar.gz"
+          echo "Creating zip..."
+          tar -czf test.zip **/*.java README.md
+          echo "Tarball created at test.zip"
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: test-artifact
-          path: test.tar.gz   # simplificado
+          path: test.zip
 
   deploy:
     runs-on: ubuntu-latest
