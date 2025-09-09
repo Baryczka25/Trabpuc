@@ -49,21 +49,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: deliver
-
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: test.zip
-
-      - name: Display structure of downloaded files
-        run: ls -R
-
-      - name: Publish to GitHub Packages
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+  deploy: 
+   runs-on : ubuntu-lastest 
+   needs : deliver 
+   steps: 
+     - uses: actions/download-artifact@v5
+       with: 
+         name: test.zip
+     - name: Display structure of downloaded files 
+       run: ls -R
