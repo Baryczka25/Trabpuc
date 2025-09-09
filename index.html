@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Joguinho Clicker</title>
+    <style>
+        body { font-family: Arial; background: #222; color: #fff; text-align: center; }
+        h1 { margin-top: 20px; }
+        #vidaInimigo { width: 300px; height: 30px; border: 2px solid #fff; margin: 10px auto; position: relative; }
+        #barraVida { height: 100%; background: red; width: 100%; transition: width 0.3s; }
+        button { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        #inimigoImg { margin-top: 10px; width: 150px; transition: opacity 0.3s; }
+        #armaImg { margin-top: 10px; width: 100px; }
+    </style>
+</head>
+<body>
+<h1>Joguinho Clicker</h1>
+<p id="pontos">Pontos: 0</p>
+<p id="danoArma">Dano da arma: 1</p>
+<p id="nomeArma">Arma: Pistola</p>
+<img id="armaImg" src="Imagens/M1911.png" alt="Arma">
+<div id="vidaInimigo"><div id="barraVida"></div></div>
+<p id="vidaTexto">Vida inimigo: 20/20</p>
+<img id="inimigoImg" src="Imagens/zombie.png" alt="Inimigo">
+<div>
+    <button onclick="atacar()">Atacar</button>
+    <button onclick="upgradeArma()">Melhorar Arma (10 Pontos)</button>
+    <button onclick="upgradePontos()">Melhorar Pontos (15 Pontos)</button>
+</div>
+
+<script>
+    const statusElement = {
+        pontos: document.getElementById("pontos"),
+        dano: document.getElementById("danoArma"),
+        nomeArma: document.getElementById("nomeArma"),
+        barraVida: document.getElementById("barraVida"),
+        vidaTexto: document.getElementById("vidaTexto"),
+        inimigoImg: document.getElementById("inimigoImg")
+    };
+
+    let ultimaVida = 20;
+
+    async function atualizarStatus() {
+        const res = await fetch("/status");
+        const text = await res.text();
+        const linhas = text.split("\n");
+
+        const pontos = linhas[0].split(": ")[1];
+        const vida = linhas[1].split(": ")[1].split("/");
+        const dano = linhas[2].split(": ")[1];
+
+        statusElement.pontos.textContent = `Pontos: ${pontos}`;
+        statusElement.dano.textContent = `Dano da arma: ${dano}`;
+
+        const vidaAtual = parseInt(vida[0]);
+        const vidaMax = parseInt(vida[1]);
+        statusElement.barraVida.style.width = (vidaAtual / vidaMax * 100) + "%";
+        statusElement.vidaTexto.textContent = `Vida inimigo: ${vidaAtual}/${vidaMax}`;
+
+        if (vidaAtual === 0 && ultimaVida > 0) {
+            statusElement.inimigoImg.style.opacity = 0.3;
+            setTimeout(() => { statusElement.inimigoImg.style.opacity = 1; }, 300);
+        }
+
+        ultimaVida = vidaAtual;
+    }
+
+    async function atacar() { await fetch("/hit"); atualizarStatus(); }
+    async function upgradeArma() { await fetch("/upgradeArma"); atualizarStatus(); }
+    async function upgradePontos() { await fetch("/upgradePontos"); atualizarStatus(); }
+
+    setInterval(atualizarStatus, 1000);
+    atualizarStatus();
+</script>
+</body>
+</html>

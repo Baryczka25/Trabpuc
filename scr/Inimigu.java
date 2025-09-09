@@ -1,18 +1,14 @@
 package scr;
 
-import javax.swing.*;
-
-
 public class Inimigu {
     private int vida;
     private int vidaMaxima;
-    private ImageIcon icone;
+    private String caminhoImagem;
 
     public Inimigu(String caminhoImagem, int vidaMaxima) {
         this.vidaMaxima = vidaMaxima;
         this.vida = vidaMaxima;
-        ImageIcon imgOriginal = new ImageIcon(caminhoImagem);
-        this.icone = new ImageIcon(imgOriginal.getImage().getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH));
+        this.caminhoImagem = caminhoImagem;
     }
 
     public void receberDano(int dano) {
@@ -22,5 +18,5 @@ public class Inimigu {
 
     public int getVida() { return vida; }
     public int getVidaMaxima() { return vidaMaxima; }
-    public ImageIcon getIcone() { return icone; }
+    public String getCaminhoImagem() { return caminhoImagem; }
 }
