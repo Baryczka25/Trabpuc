@@ -64,6 +64,6 @@ jobs:
         with:
           context: .
           push: True
-          tags: user/app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
 
-          
+
