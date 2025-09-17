@@ -31,12 +31,11 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-  deliver:
-    name: Continuous Delivery
-    runs-on: ubuntu-latest
-    needs: build
+  jobs:
+    deliver:
+      runs-on: ubuntu-latest
 
-    steps:
+      steps:
         - name: Set up JDK 11
         - uses: actions/checkout@v4uses
 
