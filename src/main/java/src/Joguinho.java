@@ -25,7 +25,7 @@ public class Joguinho {
         inimigo.receberDano(arma.getDano());
         if (inimigo.getVida() <= 0) {
             pontos += pontosPorInimigo;
-            inimigo = new Inimigu(inimigo.getCaminhoImagem(), 30); 
+            inimigo = new Inimigu(inimigo.getCaminhoImagem(), 25);
             return "Inimigo derrotado! Vida inimigo resetada.";
         }
         return "Inimigo recebeu dano. Vida restante: " + inimigo.getVida();
