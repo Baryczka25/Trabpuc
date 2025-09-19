@@ -1,10 +1,10 @@
 package scr;
-package custom.scr;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class JoguinhoTest {
+
+public class JoguinhoTest {
 
     //Joguinho
 
