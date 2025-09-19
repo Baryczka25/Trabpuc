@@ -1,4 +1,4 @@
-package src;
+package scr;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,12 @@ public class Main {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(400, 300);
 
-            frame.add(lbl);
+            // Corrigindo: criando um JLabel
+            JLabel lbl = new JLabel("Bem-vindo ao Joguinho!");
+            lbl.setFont(new Font("Arial", Font.BOLD, 16));
+            lbl.setHorizontalAlignment(SwingConstants.CENTER);
+
+            frame.add(lbl, BorderLayout.CENTER);
 
             frame.setVisible(true);
         });
