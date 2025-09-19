@@ -1,4 +1,5 @@
-package scr;
+package src;
+
 
 public class Inimigu {
     private int vida;

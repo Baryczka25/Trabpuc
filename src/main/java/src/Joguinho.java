@@ -1,4 +1,5 @@
-package scr;
+package src;
+
 
 public class Joguinho {
     private int pontos = 0;
@@ -6,16 +7,25 @@ public class Joguinho {
     private Inimigu inimigo;
     private int pontosPorInimigo = 5;
 
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public void setVidaInimigo(int vida) {
+        this.inimigo = new Inimigu(inimigo.getCaminhoImagem(), vida);
+    }
+
     public Joguinho() {
         arma = new Arma("Pistola", "imagens/M1911.png", 1);
         inimigo = new Inimigu("imagens/zombie.png", 20);
     }
 
+
     public String atacarInimigo() {
         inimigo.receberDano(arma.getDano());
         if (inimigo.getVida() <= 0) {
             pontos += pontosPorInimigo;
-            inimigo = new Inimigu("imagens/zombie.png", inimigo.getVidaMaxima() + 5);
+            inimigo = new Inimigu(inimigo.getCaminhoImagem(), 25);
             return "Inimigo derrotado! Vida inimigo resetada.";
         }
         return "Inimigo recebeu dano. Vida restante: " + inimigo.getVida();

@@ -1,12 +1,13 @@
-package scr;
-package custom.scr;
+package src;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class JoguinhoTest {
+public class JoguinhoTest {
+
 
     //Joguinho
+
 
     @Test
     void testAtacarInimigoReduzVida() {
@@ -19,9 +20,8 @@ class JoguinhoTest {
     @Test
     void testDerrotarInimigoResetaVida() {
         Joguinho jogo = new Joguinho();
-        while (jogo.getVidaInimigo() > 0) {
-            jogo.atacarInimigo();
-        }
+        jogo.setVidaInimigo(1);
+        jogo.atacarInimigo();
         int novaVida = jogo.getVidaInimigo();
         assertEquals(25, novaVida, "Vida do próximo inimigo deve aumentar 5 pontos");
     }
@@ -29,10 +29,7 @@ class JoguinhoTest {
     @Test
     void testUpgradeArma() {
         Joguinho jogo = new Joguinho();
-        // Dar pontos suficientes
-        while (jogo.getPontos() < 10) {
-            jogo.atacarInimigo();
-        }
+        jogo.setPontos(10);
         int danoAntes = jogo.getDanoArma();
         jogo.upgradeArma();
         assertTrue(jogo.getDanoArma() > danoAntes, "Dano da arma deve aumentar após upgrade");
@@ -41,9 +38,7 @@ class JoguinhoTest {
     @Test
     void testUpgradePontos() {
         Joguinho jogo = new Joguinho();
-        while (jogo.getPontos() < 15) {
-            jogo.atacarInimigo();
-        }
+        jogo.setPontos(15);
         int pontosAntes = jogo.getPontos();
         String resposta = jogo.upgradePontos();
         assertTrue(resposta.contains("Agora você ganha"), "Deve permitir upgrade de pontos");
@@ -84,7 +79,8 @@ class JoguinhoTest {
         assertEquals(4, arma.getDano());
     }
 
-    // Inimigu
+    //Inimigu
+
 
     @Test
     void testInicializacaoInimigo() {

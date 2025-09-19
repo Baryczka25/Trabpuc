@@ -30,7 +30,6 @@
     </dependencies>
 
     <build>
-        <testSourceDirectory>${project.basedir}/Trabpuc/Test/Test.java</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -61,7 +60,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>scr.Main</mainClass>
+                            <mainClass>src.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
