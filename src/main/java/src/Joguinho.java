@@ -7,10 +7,19 @@ public class Joguinho {
     private Inimigu inimigo;
     private int pontosPorInimigo = 5;
 
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public void setVidaInimigo(int vida) {
+        this.inimigo = new Inimigu(inimigo.getCaminhoImagem(), vida);
+    }
+
     public Joguinho() {
         arma = new Arma("Pistola", "imagens/M1911.png", 1);
         inimigo = new Inimigu("imagens/zombie.png", 20);
     }
+
 
     public String atacarInimigo() {
         inimigo.receberDano(arma.getDano());
