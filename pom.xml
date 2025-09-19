@@ -60,7 +60,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>scr.Main</mainClass>
+                            <mainClass>src.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
