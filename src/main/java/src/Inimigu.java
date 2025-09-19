@@ -1,5 +1,6 @@
 package src;
 
+
 public class Inimigu {
     private int vida;
     private int vidaMaxima;

@@ -1,4 +1,4 @@
-package scr;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ public class Main {
             JFrame frame = new JFrame("Jogo Clicker");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(400, 300);
-            
+
             JLabel lbl = new JLabel("Bem-vindo ao Joguinho!");
             lbl.setFont(new Font("Arial", Font.BOLD, 16));
             lbl.setHorizontalAlignment(SwingConstants.CENTER);

@@ -1,5 +1,6 @@
 package src;
 
+
 public class Joguinho {
     private int pontos = 0;
     private Arma arma;
